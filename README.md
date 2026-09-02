@@ -1,0 +1,2 @@
+# app-lingua-polonesa
+Polski
