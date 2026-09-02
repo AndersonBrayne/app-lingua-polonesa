@@ -4,6 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Polski dla Ciebie — Polonês para você</title>
+<meta name="description" content="Aprenda polonês do zero: frases, escrita e gramática, feito para falantes de português.">
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#12203E">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-512.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Polski">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -34,203 +44,65 @@
     -webkit-font-smoothing: antialiased;
   }
   ::selection{ background: var(--gold); color: var(--bg-2); }
-
   a, button { font-family: inherit; }
 
-  .wrap{
-    max-width: 880px;
-    margin: 0 auto;
-    padding: 28px 20px 80px;
-  }
+  .wrap{ max-width: 880px; margin: 0 auto; padding: 28px 20px 80px; }
 
   header.top{
-    display:flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    gap: 16px;
-    padding-bottom: 22px;
-    border-bottom: 1px solid var(--line);
-    margin-bottom: 28px;
+    display:flex; justify-content: space-between; align-items: flex-end;
+    gap: 16px; padding-bottom: 18px; margin-bottom: 4px;
   }
-  .brand{
-    display:flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-  .brand .mark{
-    font-family:'Fraunces', serif;
-    font-weight:600;
-    font-size: 1.9rem;
-    letter-spacing: -0.01em;
-    color: var(--text);
-    line-height:1;
-  }
-  .brand .mark em{
-    font-style: normal;
-    color: var(--gold);
-  }
-  .brand .sub{
-    font-size: 0.85rem;
-    color: var(--text-muted);
-  }
-  .progress-pill{
-    font-size: 0.78rem;
-    color: var(--text-muted);
-    text-align:right;
-    line-height:1.5;
-  }
+  .brand{ display:flex; flex-direction: column; gap: 4px; }
+  .brand .mark{ font-family:'Fraunces', serif; font-weight:600; font-size: 1.9rem; letter-spacing: -0.01em; line-height:1; }
+  .brand .mark em{ font-style: normal; color: var(--gold); }
+  .brand .sub{ font-size: 0.85rem; color: var(--text-muted); }
+  .progress-pill{ font-size: 0.78rem; color: var(--text-muted); text-align:right; line-height:1.5; }
   .progress-pill b{ color: var(--gold); font-weight:600; }
 
-  /* HOME GRID */
-  .lead{
-    font-family:'Fraunces', serif;
-    font-size: clamp(1.5rem, 4vw, 2.1rem);
-    line-height: 1.25;
-    max-width: 620px;
-    margin: 0 0 30px;
-    font-weight: 500;
+  .tabs{
+    display:flex; gap: 2px; border: 1px solid var(--line);
+    margin-bottom: 28px;
   }
+  .tabs button{
+    flex:1; background: var(--surface); color: var(--text-muted); border:none;
+    padding: 12px 10px; font-size: 0.88rem; cursor:pointer; font-weight:500;
+    border-bottom: 2px solid transparent;
+  }
+  .tabs button.active{ background: var(--surface-2); color: var(--gold); border-bottom-color: var(--gold); font-weight:600; }
+  .tabs button:hover:not(.active){ color: var(--text); }
 
-  .chapters{
-    display:grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 2px;
-    background: var(--line);
-    border: 1px solid var(--line);
-  }
-  .chapter{
-    background: var(--surface);
-    padding: 20px 18px;
-    cursor:pointer;
-    display:flex;
-    flex-direction:column;
-    gap: 10px;
-    text-align:left;
-    border:none;
-    color: inherit;
-    position:relative;
-    transition: background .15s ease;
-  }
+  .lead{ font-family:'Fraunces', serif; font-size: clamp(1.3rem, 3.6vw, 1.9rem); line-height: 1.3; max-width: 640px; margin: 0 0 26px; font-weight: 500; }
+
+  /* HOME GRID (frases + gramática) */
+  .chapters{ display:grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 2px; background: var(--line); border: 1px solid var(--line); }
+  .chapter{ background: var(--surface); padding: 20px 18px; cursor:pointer; display:flex; flex-direction:column; gap: 10px; text-align:left; border:none; color: inherit; position:relative; transition: background .15s ease; }
   .chapter:hover{ background: var(--surface-2); }
   .chapter:focus-visible{ outline: 2px solid var(--gold); outline-offset: -2px; }
-  .chapter .num{
-    font-family:'Fraunces', serif;
-    font-size: 0.85rem;
-    color: var(--gold-dim);
-    letter-spacing: 0.04em;
-  }
-  .chapter .title{
-    font-family:'Fraunces', serif;
-    font-size: 1.18rem;
-    font-weight: 600;
-    color: var(--text);
-  }
-  .chapter .meta{
-    font-size: 0.78rem;
-    color: var(--text-muted);
-    display:flex;
-    justify-content: space-between;
-    align-items:center;
-    margin-top: 4px;
-  }
-  .bar-track{
-    height: 3px;
-    background: var(--bg-2);
-    width: 100%;
-    margin-top: 2px;
-  }
-  .bar-fill{
-    height: 100%;
-    background: var(--gold);
-  }
+  .chapter .num{ font-family:'Fraunces', serif; font-size: 0.85rem; color: var(--gold-dim); letter-spacing: 0.04em; }
+  .chapter .title{ font-family:'Fraunces', serif; font-size: 1.18rem; font-weight: 600; }
+  .chapter .desc{ font-size: 0.8rem; color: var(--text-muted); line-height:1.4; }
+  .chapter .meta{ font-size: 0.78rem; color: var(--text-muted); display:flex; justify-content: space-between; align-items:center; margin-top: 4px; }
+  .bar-track{ height: 3px; background: var(--bg-2); width: 100%; margin-top: 2px; }
+  .bar-fill{ height: 100%; background: var(--gold); }
 
-  /* CATEGORY VIEW */
-  .backbtn{
-    background:none;
-    border:none;
-    color: var(--text-muted);
-    font-size: 0.85rem;
-    cursor:pointer;
-    padding: 0 0 18px;
-    display:flex;
-    align-items:center;
-    gap:6px;
-  }
+  .backbtn{ background:none; border:none; color: var(--text-muted); font-size: 0.85rem; cursor:pointer; padding: 0 0 18px; display:flex; align-items:center; gap:6px; }
   .backbtn:hover{ color: var(--gold); }
 
-  .cat-header{
-    display:flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    flex-wrap: wrap;
-    gap: 14px;
-    margin-bottom: 22px;
-  }
-  .cat-header .title{
-    font-family:'Fraunces', serif;
-    font-size: 1.8rem;
-    font-weight:600;
-  }
-  .mode-toggle{
-    display:flex;
-    gap: 2px;
-    border: 1px solid var(--line);
-  }
-  .mode-toggle button{
-    background: var(--surface);
-    color: var(--text-muted);
-    border: none;
-    padding: 8px 14px;
-    font-size: 0.82rem;
-    cursor: pointer;
-  }
-  .mode-toggle button.active{
-    background: var(--gold);
-    color: var(--bg-2);
-    font-weight: 600;
-  }
+  .cat-header{ display:flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 14px; margin-bottom: 22px; }
+  .cat-header .title{ font-family:'Fraunces', serif; font-size: 1.8rem; font-weight:600; }
+  .mode-toggle{ display:flex; gap: 2px; border: 1px solid var(--line); }
+  .mode-toggle button{ background: var(--surface); color: var(--text-muted); border: none; padding: 8px 14px; font-size: 0.82rem; cursor: pointer; }
+  .mode-toggle button.active{ background: var(--gold); color: var(--bg-2); font-weight: 600; }
 
   /* LIST MODE */
-  .phrase-row{
-    display:grid;
-    grid-template-columns: 1fr 1fr auto;
-    gap: 14px;
-    align-items:center;
-    padding: 16px 4px;
-    border-bottom: 1px solid var(--line);
-  }
-  .phrase-row .pt{
-    font-size: 0.95rem;
-    color: var(--text-muted);
-  }
-  .phrase-row .pl-block .pl{
-    font-family:'Fraunces', serif;
-    font-size: 1.15rem;
-    font-weight: 500;
-    color: var(--text);
-  }
-  .phrase-row .pl-block .phon{
-    font-size: 0.78rem;
-    color: var(--gold-dim);
-    font-style: italic;
-    margin-top: 2px;
-  }
-  .play-btn{
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    border: 1px solid var(--line);
-    background: transparent;
-    color: var(--gold);
-    cursor:pointer;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    flex-shrink:0;
-    font-size: 1rem;
-  }
+  .phrase-row{ display:grid; grid-template-columns: 1fr 1fr auto; gap: 14px; align-items:center; padding: 16px 4px; border-bottom: 1px solid var(--line); }
+  .phrase-row .pt{ font-size: 0.95rem; color: var(--text-muted); }
+  .phrase-row .pl-block .pl{ font-family:'Fraunces', serif; font-size: 1.15rem; font-weight: 500; }
+  .phrase-row .pl-block .phon{ font-size: 0.78rem; color: var(--gold-dim); font-style: italic; margin-top: 2px; }
+  .play-btn{ width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--line); background: transparent; color: var(--gold); cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size: 1rem; }
   .play-btn:hover{ border-color: var(--gold); background: rgba(214,164,41,0.08); }
   .play-btn.playing{ background: var(--gold); color: var(--bg-2); }
+  .play-btn.mini{ width:30px; height:30px; font-size:0.85rem; }
 
   @media (max-width: 560px){
     .phrase-row{ grid-template-columns: 1fr auto; }
@@ -240,67 +112,15 @@
   }
 
   /* FLASHCARD MODE */
-  .flash-wrap{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap: 22px;
-    padding: 20px 0 10px;
-  }
-  .flash-progress{
-    font-size: 0.8rem;
-    color: var(--text-muted);
-  }
-  .flashcard{
-    width: 100%;
-    max-width: 440px;
-    min-height: 220px;
-    background: var(--surface);
-    border: 1px solid var(--line);
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    gap: 14px;
-    padding: 30px 24px;
-    text-align:center;
-    cursor:pointer;
-    position:relative;
-  }
-  .flashcard .side-label{
-    position:absolute;
-    top:14px; left:16px;
-    font-size: 0.68rem;
-    letter-spacing: 0.06em;
-    color: var(--text-muted);
-  }
-  .flashcard .main{
-    font-family:'Fraunces', serif;
-    font-size: 1.7rem;
-    font-weight: 600;
-  }
-  .flashcard .phon{
-    color: var(--gold);
-    font-style: italic;
-    font-size: 0.95rem;
-  }
-  .flashcard .hint{
-    color: var(--text-muted);
-    font-size: 0.78rem;
-    margin-top: 6px;
-  }
-  .flash-controls{
-    display:flex;
-    gap: 10px;
-  }
-  .flash-controls button{
-    padding: 10px 20px;
-    border: 1px solid var(--line);
-    background: var(--surface);
-    color: var(--text);
-    cursor:pointer;
-    font-size: 0.85rem;
-  }
+  .flash-wrap{ display:flex; flex-direction:column; align-items:center; gap: 22px; padding: 20px 0 10px; }
+  .flash-progress{ font-size: 0.8rem; color: var(--text-muted); }
+  .flashcard{ width: 100%; max-width: 440px; min-height: 220px; background: var(--surface); border: 1px solid var(--line); display:flex; flex-direction:column; align-items:center; justify-content:center; gap: 14px; padding: 30px 24px; text-align:center; cursor:pointer; position:relative; }
+  .flashcard .side-label{ position:absolute; top:14px; left:16px; font-size: 0.68rem; letter-spacing: 0.06em; color: var(--text-muted); }
+  .flashcard .main{ font-family:'Fraunces', serif; font-size: 1.7rem; font-weight: 600; }
+  .flashcard .phon{ color: var(--gold); font-style: italic; font-size: 0.95rem; }
+  .flashcard .hint{ color: var(--text-muted); font-size: 0.78rem; margin-top: 6px; }
+  .flash-controls{ display:flex; gap: 10px; flex-wrap:wrap; justify-content:center; }
+  .flash-controls button{ padding: 10px 20px; border: 1px solid var(--line); background: var(--surface); color: var(--text); cursor:pointer; font-size: 0.85rem; }
   .flash-controls .know{ border-color: var(--good); color: var(--good); }
   .flash-controls .know:hover{ background: rgba(111,169,122,0.12); }
   .flash-controls .dontknow{ border-color: var(--bad); color: var(--bad); }
@@ -308,106 +128,58 @@
   .flash-controls .say{ border-color: var(--gold); color: var(--gold); }
 
   /* QUIZ */
-  .quiz-box{
-    background: var(--surface);
-    border: 1px solid var(--line);
-    padding: 28px 24px;
-    max-width: 520px;
-    margin: 0 auto;
-  }
-  .quiz-progress{
-    font-size: 0.78rem;
-    color: var(--text-muted);
-    margin-bottom: 14px;
-  }
-  .quiz-question{
-    font-family:'Fraunces', serif;
-    font-size: 1.4rem;
-    margin-bottom: 22px;
-  }
-  .quiz-question small{
-    display:block;
-    color: var(--text-muted);
-    font-family:'Work Sans', sans-serif;
-    font-size: 0.75rem;
-    margin-bottom: 6px;
-  }
-  .quiz-opts{
-    display:flex;
-    flex-direction:column;
-    gap: 8px;
-  }
-  .quiz-opt{
-    text-align:left;
-    padding: 13px 16px;
-    border: 1px solid var(--line);
-    background: var(--bg-2);
-    color: var(--text);
-    cursor:pointer;
-    font-size: 0.95rem;
-    font-family:'Fraunces', serif;
-  }
+  .quiz-box{ background: var(--surface); border: 1px solid var(--line); padding: 28px 24px; max-width: 520px; margin: 0 auto; }
+  .quiz-progress{ font-size: 0.78rem; color: var(--text-muted); margin-bottom: 14px; }
+  .quiz-question{ font-family:'Fraunces', serif; font-size: 1.4rem; margin-bottom: 22px; }
+  .quiz-question small{ display:block; color: var(--text-muted); font-family:'Work Sans', sans-serif; font-size: 0.75rem; margin-bottom: 6px; }
+  .quiz-opts{ display:flex; flex-direction:column; gap: 8px; }
+  .quiz-opt{ text-align:left; padding: 13px 16px; border: 1px solid var(--line); background: var(--bg-2); color: var(--text); cursor:pointer; font-size: 0.95rem; font-family:'Fraunces', serif; }
   .quiz-opt:hover{ border-color: var(--gold); }
   .quiz-opt.correct{ border-color: var(--good); background: rgba(111,169,122,0.14); }
   .quiz-opt.wrong{ border-color: var(--bad); background: rgba(193,84,74,0.14); }
   .quiz-opt[disabled]{ cursor:default; }
-
-  .quiz-result{
-    text-align:center;
-    padding: 30px 10px;
-  }
-  .quiz-result .score{
-    font-family:'Fraunces', serif;
-    font-size: 2.4rem;
-    color: var(--gold);
-  }
-  .quiz-result .best{
-    color: var(--text-muted);
-    font-size: 0.85rem;
-    margin-top: 4px;
-  }
-  .primary-btn{
-    margin-top: 20px;
-    background: var(--crimson);
-    color: #F8ECE9;
-    border:none;
-    padding: 12px 22px;
-    cursor:pointer;
-    font-size: 0.88rem;
-    font-weight: 600;
-  }
+  .quiz-result{ text-align:center; padding: 30px 10px; }
+  .quiz-result .score{ font-family:'Fraunces', serif; font-size: 2.4rem; color: var(--gold); }
+  .quiz-result .best{ color: var(--text-muted); font-size: 0.85rem; margin-top: 4px; }
+  .primary-btn{ margin-top: 20px; background: var(--crimson); color: #F8ECE9; border:none; padding: 12px 22px; cursor:pointer; font-size: 0.88rem; font-weight: 600; }
   .primary-btn:hover{ background: #a92f22; }
-  .ghost-btn{
-    margin-top: 10px;
-    background: none;
-    border:none;
-    color: var(--text-muted);
-    cursor:pointer;
-    font-size: 0.82rem;
-    text-decoration: underline;
-  }
-
-  .quiz-launch{
-    text-align:center;
-    padding: 10px 0 6px;
-  }
+  .ghost-btn{ margin-top: 10px; background: none; border:none; color: var(--text-muted); cursor:pointer; font-size: 0.82rem; text-decoration: underline; }
+  .quiz-launch{ text-align:center; padding: 10px 0 6px; }
   .quiz-launch p{ color: var(--text-muted); max-width: 420px; margin: 8px auto 20px; font-size: 0.9rem;}
 
-  footer.note{
-    margin-top: 50px;
-    padding-top: 18px;
-    border-top: 1px solid var(--line);
-    font-size: 0.76rem;
-    color: var(--text-muted);
-    line-height: 1.6;
-  }
+  footer.note{ margin-top: 50px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 0.76rem; color: var(--text-muted); line-height: 1.6; }
+
+  /* ESCRITA + GRAMÁTICA content blocks */
+  .content-section{ margin-bottom: 40px; }
+  .content-section h2{ font-family:'Fraunces', serif; font-size: 1.35rem; font-weight:600; margin: 0 0 6px; color: var(--gold); }
+  .content-section .section-intro{ color: var(--text-muted); font-size: 0.9rem; margin-bottom: 16px; max-width: 640px; }
+  .gp{ font-size: 0.94rem; line-height: 1.65; color: var(--text); margin: 0 0 14px; max-width: 680px; }
+  .gp b{ color: var(--gold); font-weight:600; }
+  .gh{ font-family:'Fraunces', serif; font-size: 1.05rem; font-weight:600; margin: 22px 0 8px; }
+  .glist{ margin: 0 0 14px; padding-left: 20px; font-size: 0.92rem; line-height:1.7; color: var(--text); }
+  .glist li{ margin-bottom: 4px; }
+  .glist b{ color: var(--gold); }
+
+  table.gtable{ width:100%; border-collapse: collapse; margin: 6px 0 22px; font-size: 0.86rem; }
+  table.gtable th{ text-align:left; color: var(--text-muted); font-weight:500; font-size: 0.72rem; letter-spacing:0.03em; padding: 6px 10px; border-bottom: 1px solid var(--line); }
+  table.gtable td{ padding: 9px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  table.gtable td.pl-cell{ font-family:'Fraunces', serif; color: var(--gold); font-weight:500; }
+  table.gtable tr:hover td{ background: rgba(214,164,41,0.04); }
+
+  .example-row{ display:flex; align-items:center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+  .example-row .ex-text{ flex:1; }
+  .example-row .ex-pl{ font-family:'Fraunces', serif; font-size: 1.02rem; color: var(--gold); }
+  .example-row .ex-phon{ font-size: 0.76rem; color: var(--gold-dim); font-style: italic; }
+  .example-row .ex-pt{ font-size: 0.82rem; color: var(--text-muted); margin-top: 2px; }
+
+  .lesson-grid{ display:grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 2px; background: var(--line); border: 1px solid var(--line); margin-top: 4px; }
 </style>
 </head>
 <body>
   <div class="wrap" id="app"></div>
 
 <script>
-/* ================= DATA ================= */
+/* ================= PHRASEBOOK DATA ================= */
 const CATEGORIES = [
   { id:'essenciais', num:'01', title:'Frases essenciais', phrases:[
     ['Olá','Cześć','tchéch'],
@@ -528,39 +300,225 @@ const CATEGORIES = [
   ]},
 ];
 
+/* ================= ESCRITA DATA ================= */
+const ALPHABET = [
+  ['A a','"a" aberto, como em "pá"','tak','sim'],
+  ['Ą ą','vogal nasal, como "on" em "vão"','mąż','marido'],
+  ['B b','como em português','bank','banco'],
+  ['C c','"ts", como em "pizza"','co','o quê'],
+  ['Ć ć','"tch" suave e palatal (mais fino que cz)','być','ser / estar'],
+  ['D d','como em português','dom','casa'],
+  ['E e','"é" aberto','ekran','tela'],
+  ['Ę ę','vogal nasal, como "en"','imię','nome'],
+  ['F f','como em português','fajny','legal'],
+  ['G g','sempre "g" duro (gato), nunca vira "j"','góra','montanha'],
+  ['H h','"h" aspirado suave, quase um "r" fraco','hotel','hotel'],
+  ['I i','"i" fechado','i','e'],
+  ['J j','semivogal "i", como o "y" em "yes"','ja','eu'],
+  ['K k','como em português','kot','gato'],
+  ['L l','"l" claro','lato','verão'],
+  ['Ł ł','som de "u" inglês (w), como em "water"','łóżko','cama'],
+  ['M m','como em português','miasto','cidade'],
+  ['N n','como em português','noc','noite'],
+  ['Ń ń','"nh", como em "manhã"','koń','cavalo'],
+  ['O o','"ó" aberto','okno','janela'],
+  ['Ó ó','"u" fechado (soa igual a U)','ósmy','oitavo'],
+  ['P p','como em português','pies','cachorro'],
+  ['R r','"r" vibrante, como em "carro"','ryba','peixe'],
+  ['S s','"s" surdo','syn','filho'],
+  ['Ś ś','"sh" suave e palatal','śnieg','neve'],
+  ['T t','como em português','ty','tu'],
+  ['U u','"u" fechado','ulica','rua'],
+  ['W w','"v"','woda','água'],
+  ['Y y','som central, entre "i" e "u"','ryby','peixes'],
+  ['Z z','"z" sonoro','zima','inverno'],
+  ['Ź ź','"j" suave e palatal','źle','mal'],
+  ['Ż ż','"j" como no francês "jour"','żona','esposa'],
+];
+
+const DIGRAPHS = [
+  ['cz','"tch" forte, como em "tchau"','czas','tempo'],
+  ['sz','"sh" forte, como em "show"','szkoła','escola'],
+  ['rz','igual a ż: "j" como no francês "jour"','rzeka','rio'],
+  ['dz','"dz", como em "pizza" dita rápido','dzwon','sino'],
+  ['dź','"dj" suave e palatal','dźwięk','som'],
+  ['dż','"dj" forte, como em "adjective" em inglês','dżem','geleia'],
+  ['ch','igual a h: aspirado suave','chleb','pão'],
+];
+
+const ESCRITA_INTRO = [
+  {type:'p', text:'O polonês usa o alfabeto latino, mas com letras extras (com acentos e riscos) e vários dígrafos — duas letras que juntas formam um único som. A boa notícia: ao contrário do português, <b>quase não há exceções</b>. Uma vez aprendidas as regras, você sabe ler qualquer palavra polonesa em voz alta, mesmo sem nunca tê-la visto antes.'}
+];
+
+const ESCRITA_STRESS = [
+  {type:'p', text:'O acento tônico no polonês é muito mais previsível do que no português: quase sempre cai na <b>penúltima sílaba</b> da palavra, não importa quantas sílabas ela tenha.'},
+  {type:'example', pl:'Warszawa', phon:'var-SHÁ-va', pt:'Varsóvia — acento na penúltima sílaba'},
+  {type:'example', pl:'uniwersytet', phon:'u-ni-ver-SI-tet', pt:'universidade — mesmo em palavras longas, a regra se mantém'},
+  {type:'p', text:'As exceções são raras e aparecem principalmente em palavras de origem estrangeira ou em algumas formas verbais compostas — não se preocupe com elas no início.'}
+];
+
+const ESCRITA_PALATAL = [
+  {type:'p', text:'Você vai notar que alguns sons têm duas grafias: <b>ć / ci</b>, <b>ś / si</b>, <b>ń / ni</b>, <b>ź / zi</b>. É o mesmo som suave e "molhado" (parecido com o "nh" e o "lh" do português) — a diferença é só ortográfica:'},
+  {type:'list', items:[
+    'Use <b>ć, ś, ń, ź</b> quando a letra vem sozinha ou antes de outra consoante, ou no fim da palavra.',
+    'Use <b>ci, si, ni, zi</b> quando a letra vem antes de uma vogal — o "i" nesse caso não se pronuncia como vogal própria, ele só indica que a consoante anterior é suave.',
+  ]},
+  {type:'example', pl:'koń', phon:'konh', pt:'cavalo (ń no fim da palavra)'},
+  {type:'example', pl:'konie', phon:'kó-nhe', pt:'cavalos (mesma consoante suave, grafada "ni" antes da vogal)'},
+];
+
+/* ================= GRAMÁTICA DATA ================= */
+const GRAMMAR = [
+  { id:'genero', num:'01', title:'Gênero dos substantivos', desc:'Masculino, feminino e neutro', blocks:[
+    {type:'p', text:'No polonês, todo substantivo tem um gênero — <b>masculino</b>, <b>feminino</b> ou <b>neutro</b> — e isso, na maioria das vezes, dá para adivinhar pela terminação da palavra.'},
+    {type:'table', headers:['Gênero','Terminação típica','Exemplo','Significado'], rows:[
+      ['Masculino','consoante','dom','casa / prédio'],
+      ['Masculino','consoante','kot','gato'],
+      ['Feminino','-a','kobieta','mulher'],
+      ['Feminino','-a','książka','livro'],
+      ['Neutro','-o, -e, -ę','okno','janela'],
+      ['Neutro','-o, -e, -ę','morze','mar'],
+    ]},
+    {type:'p', text:'Existem substantivos femininos que terminam em consoante suave, como <b>noc</b> (noite) e <b>miłość</b> (amor) — vale a pena memorizá-los junto com o artigo mental "a" ao aprender.'},
+    {type:'p', text:'O gênero importa porque ele muda a forma dos adjetivos e, no passado, também a forma dos verbos — por isso vale aprender cada substantivo novo já com seu gênero.'},
+  ]},
+  { id:'plural', num:'02', title:'Plural dos substantivos', desc:'Como formar o plural', blocks:[
+    {type:'p', text:'O plural em polonês depende do gênero do substantivo no singular.'},
+    {type:'table', headers:['Singular','Plural','Regra','Significado'], rows:[
+      ['kot','koty','masculino: +y','gato → gatos'],
+      ['student','studenci','masc. pessoa: +i (com mudança de som)','estudante → estudantes'],
+      ['kobieta','kobiety','feminino -a → -y','mulher → mulheres'],
+      ['książka','książki','feminino -a → -i','livro → livros'],
+      ['okno','okna','neutro -o → -a','janela → janelas'],
+      ['morze','morza','neutro -e → -a','mar → mares'],
+    ]},
+    {type:'p', text:'Um detalhe só do polonês: substantivos masculinos que designam <b>homens</b> (como "studenci") têm uma forma de plural própria, diferente da usada para objetos ou animais masculinos. É um refinamento para depois — no início, reconhecer o padrão básico já ajuda muito.'},
+  ]},
+  { id:'pronomes', num:'03', title:'Pronomes pessoais', desc:'Eu, tu, ele, nós...', blocks:[
+    {type:'table', headers:['Polonês','Português','Pronúncia'], rows:[
+      ['ja','eu','ia'],
+      ['ty','tu / você (informal)','ti'],
+      ['on','ele','on'],
+      ['ona','ela','óna'],
+      ['ono','isso (neutro)','óno'],
+      ['my','nós','mi'],
+      ['wy','vós / vocês','vi'],
+      ['oni','eles (grupo com ao menos um homem)','óni'],
+      ['one','elas (grupo sem homens)','óne'],
+    ]},
+    {type:'p', text:'Assim como em português, o pronome costuma ser <b>omitido</b>, porque a terminação do verbo já indica quem é o sujeito: em vez de "ja rozumiem", basta dizer <b>"rozumiem"</b> (eu entendo). O pronome só aparece quando se quer dar ênfase ou evitar ambiguidade.'},
+  ]},
+  { id:'byc', num:'04', title:'O verbo być (ser / estar)', desc:'O verbo mais importante da língua', blocks:[
+    {type:'p', text:'<b>Być</b> equivale a "ser" e "estar" juntos, e é o primeiro verbo que vale a pena decorar de cor — ele aparece em toda frase de apresentação e em várias construções gramaticais.'},
+    {type:'table', headers:['Pessoa','Polonês','Pronúncia'], rows:[
+      ['ja (eu)','jestem','iéstem'],
+      ['ty (tu)','jesteś','iésteśh'],
+      ['on/ona/ono','jest','iest'],
+      ['my (nós)','jesteśmy','iesteśhmi'],
+      ['wy (vós)','jesteście','iesteśhtche'],
+      ['oni/one','są','son'],
+    ]},
+    {type:'example', pl:'Jestem z Brazylii.', phon:'iéstem z brazílii', pt:'Eu sou do Brasil.'},
+    {type:'example', pl:'Jesteśmy gotowi.', phon:'iesteśhmi gotóvi', pt:'Estamos prontos.'},
+  ]},
+  { id:'verbos', num:'05', title:'Verbos regulares no presente', desc:'Três padrões de conjugação', blocks:[
+    {type:'p', text:'A maioria dos verbos poloneses no presente segue um destes três padrões. Aprender um verbo de cada grupo já dá acesso a centenas de outros que se conjugam do mesmo jeito.'},
+    {type:'h', text:'czytać (ler)'},
+    {type:'table', headers:['Pessoa','Forma'], rows:[
+      ['ja','czytam'],['ty','czytasz'],['on/ona/ono','czyta'],
+      ['my','czytamy'],['wy','czytacie'],['oni/one','czytają'],
+    ]},
+    {type:'h', text:'mówić (falar)'},
+    {type:'table', headers:['Pessoa','Forma'], rows:[
+      ['ja','mówię'],['ty','mówisz'],['on/ona/ono','mówi'],
+      ['my','mówimy'],['wy','mówicie'],['oni/one','mówią'],
+    ]},
+    {type:'h', text:'mieć (ter)'},
+    {type:'table', headers:['Pessoa','Forma'], rows:[
+      ['ja','mam'],['ty','masz'],['on/ona/ono','ma'],
+      ['my','mamy'],['wy','macie'],['oni/one','mają'],
+    ]},
+  ]},
+  { id:'negacao', num:'06', title:'Negação', desc:'Como dizer "não"', blocks:[
+    {type:'p', text:'Para negar uma frase, basta colocar <b>nie</b> antes do verbo.'},
+    {type:'example', pl:'Nie rozumiem.', phon:'nié rozúmiem', pt:'Eu não entendo.'},
+    {type:'example', pl:'Nie mam czasu.', phon:'nié mam tchásu', pt:'Eu não tenho tempo.'},
+    {type:'p', text:'Repare em <b>"czasu"</b> no segundo exemplo: quando o verbo é negado, o objeto direto muda para o caso <b>genitivo</b> em vez do acusativo normal — "mam czas" (tenho tempo) vira "nie mam czasu" (não tenho tempo). É uma regra só do polonês, sem equivalente direto em português.'},
+    {type:'p', text:'Outra semelhança curiosa com o português: o polonês também usa <b>dupla negação</b>, e ela é obrigatória, não opcional.'},
+    {type:'example', pl:'Nigdy nic nie robię.', phon:'nígdi nits nié róbie', pt:'Eu nunca faço nada. (literalmente: "nunca nada não faço")'},
+  ]},
+  { id:'casos', num:'07', title:'Os 7 casos gramaticais', desc:'A base da gramática polonesa', blocks:[
+    {type:'p', text:'Esta é a maior diferença estrutural entre polonês e português: os substantivos, pronomes e adjetivos <b>mudam de forma</b> (declinam) conforme sua função na frase. São 7 casos ao todo. Veja a palavra <b>kobieta</b> (mulher) declinada no singular:'},
+    {type:'table', headers:['Caso','Função','Forma','Exemplo de uso'], rows:[
+      ['Mianownik (nominativo)','sujeito da frase','kobieta','Kobieta czyta. (A mulher lê.)'],
+      ['Dopełniacz (genitivo)','posse, negação, "de"','kobiety','dom kobiety (a casa da mulher)'],
+      ['Celownik (dativo)','objeto indireto, "para/a"','kobiecie','Daję kwiat kobiecie. (Dou uma flor à mulher.)'],
+      ['Biernik (acusativo)','objeto direto','kobietę','Widzę kobietę. (Vejo a mulher.)'],
+      ['Narzędnik (instrumental)','"com / por meio de"','kobietą','z kobietą (com a mulher)'],
+      ['Miejscownik (locativo)','localização, sempre com preposição','kobiecie','o kobiecie (sobre a mulher)'],
+      ['Wołacz (vocativo)','chamar alguém diretamente','kobieto!','Kobieto! (Ei, mulher!)'],
+    ]},
+    {type:'p', text:'Não se assuste: ninguém aprende os 7 casos de uma vez. A estratégia que funciona é <b>reconhecer as frases prontas primeiro</b> (como as do capítulo de frases) e, aos poucos, perceber os padrões de terminação se repetindo. O nominativo e o acusativo são os mais usados no dia a dia — comece por eles.'},
+  ]},
+  { id:'aspecto', num:'08', title:'Aspecto verbal', desc:'Ação em curso x ação concluída', blocks:[
+    {type:'p', text:'Todo verbo polonês (com raríssimas exceções) existe em <b>dois pares</b>: uma forma <b>imperfectiva</b>, para ações em andamento, repetidas ou sem fim marcado, e uma forma <b>perfectiva</b>, para ações concluídas ou pontuais. Não existe equivalente direto em português — é mais próximo da diferença entre "estava escrevendo" e "escrevi", mas embutido no próprio verbo.'},
+    {type:'table', headers:['Imperfectivo','Perfectivo','Significado'], rows:[
+      ['pisać','napisać','escrever'],
+      ['czytać','przeczytać','ler'],
+      ['robić','zrobić','fazer'],
+      ['jeść','zjeść','comer'],
+    ]},
+    {type:'example', pl:'Pisałem list.', phon:'pisáwem list', pt:'Eu estava escrevendo uma carta. (processo, imperfectivo)'},
+    {type:'example', pl:'Napisałem list.', phon:'napisáwem list', pt:'Eu escrevi a carta. (ação concluída, perfectivo)'},
+    {type:'p', text:'Dica prática: ao aprender um verbo novo, tente sempre anotar os dois — o par imperfectivo/perfectivo — mesmo antes de entender todas as nuances de uso.'},
+  ]},
+  { id:'adjetivos', num:'09', title:'Adjetivos e concordância', desc:'Como o adjetivo muda com o gênero', blocks:[
+    {type:'p', text:'O adjetivo concorda em gênero (e depois em caso) com o substantivo que ele acompanha, de forma parecida com o português — mas com terminações próprias.'},
+    {type:'table', headers:['Gênero','Terminação','Exemplo','Significado'], rows:[
+      ['Masculino','-y / -i','dobry chłopiec','bom menino'],
+      ['Feminino','-a','dobra kobieta','boa mulher'],
+      ['Neutro','-e / -ie','dobre dziecko','boa criança'],
+    ]},
+    {type:'p', text:'O adjetivo quase sempre vem <b>antes</b> do substantivo, como em português quando queremos dar ênfase — "um bom livro" seria "dobra książka".'},
+  ]},
+  { id:'ordem', num:'10', title:'Ordem das palavras e perguntas', desc:'Como montar frases e fazer perguntas', blocks:[
+    {type:'p', text:'Como os casos gramaticais já indicam a função de cada palavra na frase, a ordem das palavras em polonês é <b>mais livre</b> do que em português — o padrão mais comum é sujeito-verbo-objeto, mas mudar a ordem serve para dar ênfase, não muda o sentido básico.'},
+    {type:'p', text:'Para transformar uma afirmação em pergunta de sim/não, basta acrescentar <b>Czy</b> no início da frase — não é preciso mudar a ordem das palavras como em inglês.'},
+    {type:'example', pl:'Masz czas.', phon:'mash tchas', pt:'Você tem tempo.'},
+    {type:'example', pl:'Czy masz czas?', phon:'tchi mash tchas', pt:'Você tem tempo?'},
+    {type:'table', headers:['Palavra','Significado'], rows:[
+      ['kto','quem'],['co','o quê'],['gdzie','onde'],['kiedy','quando'],
+      ['dlaczego','por quê'],['jak','como'],['ile','quanto'],
+    ]},
+  ]},
+];
+
 /* ============== STATE ============== */
-let state = { view:'home', catId:null, mode:'list', flashIndex:0, flashFlipped:false,
-              quiz:null, mastery:{} };
+let state = {
+  section:'frases', // 'frases' | 'escrita' | 'gramatica'
+  view:'home', catId:null, mode:'list', flashIndex:0, flashFlipped:false,
+  quiz:null, mastery:{}, gramLesson:null
+};
 
 /* ============== STORAGE ============== */
 async function loadMastery(){
-  try{
-    const r = await window.storage.get('mastery-data');
-    state.mastery = r ? JSON.parse(r.value) : {};
-  }catch(e){ state.mastery = {}; }
+  try{ const r = await window.storage.get('mastery-data'); state.mastery = r ? JSON.parse(r.value) : {}; }
+  catch(e){ state.mastery = {}; }
 }
-async function saveMastery(){
-  try{ await window.storage.set('mastery-data', JSON.stringify(state.mastery)); }catch(e){}
-}
+async function saveMastery(){ try{ await window.storage.set('mastery-data', JSON.stringify(state.mastery)); }catch(e){} }
 async function loadBest(catId){
-  try{
-    const r = await window.storage.get('quiz-best:'+catId);
-    return r ? JSON.parse(r.value) : null;
-  }catch(e){ return null; }
+  try{ const r = await window.storage.get('quiz-best:'+catId); return r ? JSON.parse(r.value) : null; }
+  catch(e){ return null; }
 }
 async function saveBest(catId, score, total){
   try{
     const cur = await loadBest(catId);
-    if(!cur || score > cur.score){
-      await window.storage.set('quiz-best:'+catId, JSON.stringify({score, total}));
-    }
+    if(!cur || score > cur.score) await window.storage.set('quiz-best:'+catId, JSON.stringify({score, total}));
   }catch(e){}
 }
-
 function phraseKey(catId, idx){ return catId+':'+idx; }
 function catMasteryPct(cat){
-  const total = cat.phrases.length;
-  let known = 0;
+  const total = cat.phrases.length; let known=0;
   cat.phrases.forEach((_,i)=>{ if(state.mastery[phraseKey(cat.id,i)]) known++; });
   return Math.round(100*known/total);
 }
@@ -576,34 +534,32 @@ function pickVoice(){
   const voices = window.speechSynthesis ? window.speechSynthesis.getVoices() : [];
   polishVoice = voices.find(v=>v.lang && v.lang.toLowerCase().startsWith('pl')) || null;
 }
-if('speechSynthesis' in window){
-  pickVoice();
-  window.speechSynthesis.onvoiceschanged = pickVoice;
-}
+if('speechSynthesis' in window){ pickVoice(); window.speechSynthesis.onvoiceschanged = pickVoice; }
 function speak(text, btn){
   if(!('speechSynthesis' in window)) return;
   window.speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(text);
-  u.lang = 'pl-PL';
-  if(polishVoice) u.voice = polishVoice;
-  u.rate = 0.88;
-  if(btn){
-    btn.classList.add('playing');
-    u.onend = ()=> btn.classList.remove('playing');
-    u.onerror = ()=> btn.classList.remove('playing');
-  }
+  u.lang = 'pl-PL'; if(polishVoice) u.voice = polishVoice; u.rate = 0.88;
+  if(btn){ btn.classList.add('playing'); u.onend = ()=> btn.classList.remove('playing'); u.onerror = ()=> btn.classList.remove('playing'); }
   window.speechSynthesis.speak(u);
 }
 
-/* ============== RENDER ============== */
+/* ============== RENDER ROOT ============== */
 const app = document.getElementById('app');
 
 function render(){
-  if(state.view==='home') return renderHome();
-  if(state.view==='category') return renderCategory();
-  if(state.view==='quiz-launch') return renderQuizLaunch();
-  if(state.view==='quiz') return renderQuiz();
-  if(state.view==='quiz-result') return renderQuizResult();
+  if(state.section==='frases'){
+    if(state.view==='home') return renderHome();
+    if(state.view==='category') return renderCategory();
+    if(state.view==='quiz-launch') return renderQuizLaunch();
+    if(state.view==='quiz') return renderQuiz();
+    if(state.view==='quiz-result') return renderQuizResult();
+  }
+  if(state.section==='escrita') return renderEscrita();
+  if(state.section==='gramatica'){
+    if(state.gramLesson) return renderGrammarLesson();
+    return renderGrammarGrid();
+  }
 }
 
 function headerHTML(){
@@ -613,10 +569,26 @@ function headerHTML(){
       <div class="mark">Polski dla <em>Ciebie</em></div>
       <div class="sub">polonês para falantes de português</div>
     </div>
-    <div class="progress-pill">progresso geral<br><b>${overallPct()}%</b> das frases dominadas</div>
-  </header>`;
+    <div class="progress-pill">progresso nas frases<br><b>${overallPct()}%</b> dominadas</div>
+  </header>
+  <div class="tabs">
+    <button data-sec="frases" class="${state.section==='frases'?'active':''}">Frases</button>
+    <button data-sec="escrita" class="${state.section==='escrita'?'active':''}">Escrita</button>
+    <button data-sec="gramatica" class="${state.section==='gramatica'?'active':''}">Gramática</button>
+  </div>
+  `;
+}
+function bindTabs(){
+  app.querySelectorAll('.tabs button').forEach(b=>{
+    b.onclick = ()=>{
+      state.section = b.dataset.sec;
+      state.view='home'; state.catId=null; state.gramLesson=null;
+      render();
+    };
+  });
 }
 
+/* ============== FRASES: HOME ============== */
 function renderHome(){
   const chapters = CATEGORIES.map(c=>{
     const pct = catMasteryPct(c);
@@ -635,6 +607,7 @@ function renderHome(){
     <div class="chapters">${chapters}</div>
     <footer class="note">A pronúncia escrita é uma aproximação pensada para leitores de português — o botão de áudio usa a voz polonesa do seu navegador, quando disponível. O progresso fica salvo neste dispositivo.</footer>
   `;
+  bindTabs();
   app.querySelectorAll('.chapter').forEach(btn=>{
     btn.addEventListener('click', ()=>{
       state.view='category'; state.catId=btn.dataset.cat; state.mode='list';
@@ -664,15 +637,14 @@ function renderCategory(){
       <button class="primary-btn" id="startquiz">Fazer o quiz de ${cat.title}</button>
     </div>
   `;
+  bindTabs();
   document.getElementById('back').onclick = ()=>{ state.view='home'; render(); };
   document.getElementById('startquiz').onclick = ()=>{ state.view='quiz-launch'; render(); };
   app.querySelectorAll('.mode-toggle button').forEach(b=>{
     b.onclick = ()=>{ state.mode=b.dataset.mode; state.flashIndex=0; state.flashFlipped=false; render(); };
   });
-
   const body = document.getElementById('catbody');
-  if(state.mode==='list') renderList(body, cat);
-  else renderFlash(body, cat);
+  if(state.mode==='list') renderList(body, cat); else renderFlash(body, cat);
 }
 
 function renderList(body, cat){
@@ -689,9 +661,7 @@ function renderList(body, cat){
 }
 
 function renderFlash(body, cat){
-  const i = state.flashIndex;
-  const p = cat.phrases[i];
-  const flipped = state.flashFlipped;
+  const i = state.flashIndex; const p = cat.phrases[i]; const flipped = state.flashFlipped;
   body.innerHTML = `
     <div class="flash-wrap">
       <div class="flash-progress">Cartão ${i+1} de ${cat.phrases.length}</div>
@@ -717,15 +687,10 @@ function renderFlash(body, cat){
 function markFlash(cat, i, known){
   state.mastery[phraseKey(cat.id,i)] = known;
   saveMastery();
-  if(i < cat.phrases.length-1){
-    state.flashIndex = i+1;
-  } else {
-    state.flashIndex = 0;
-  }
+  state.flashIndex = (i < cat.phrases.length-1) ? i+1 : 0;
   state.flashFlipped = false;
   const body = document.getElementById('catbody');
   renderFlash(body, cat);
-  // refresh header progress subtly
   const pill = document.querySelector('.progress-pill b');
   if(pill) pill.textContent = overallPct()+'%';
 }
@@ -742,39 +707,33 @@ function renderQuizLaunch(){
       <button class="primary-btn" id="go">Começar</button>
     </div>
   `;
+  bindTabs();
   document.getElementById('back').onclick = ()=>{ state.view='category'; render(); };
   document.getElementById('go').onclick = ()=> startQuiz(cat);
 }
 
 function startQuiz(cat){
   const n = Math.min(cat.phrases.length, 8);
-  const idxs = [...cat.phrases.keys()];
-  shuffle(idxs);
+  const idxs = [...cat.phrases.keys()]; shuffle(idxs);
   const chosen = idxs.slice(0,n);
   const questions = chosen.map(qi=>{
     const correct = cat.phrases[qi];
     let distractors = cat.phrases.filter((_,i)=>i!==qi).map(p=>p[1]);
-    shuffle(distractors);
-    distractors = distractors.slice(0,3);
+    shuffle(distractors); distractors = distractors.slice(0,3);
     const options = shuffle([correct[1], ...distractors]);
     return { pt: correct[0], correct: correct[1], options, phon: correct[2] };
   });
   state.quiz = { cat, questions, index:0, score:0, answered:false };
-  state.view='quiz';
-  render();
+  state.view='quiz'; render();
 }
 
 function shuffle(arr){
-  for(let i=arr.length-1;i>0;i--){
-    const j = Math.floor(Math.random()*(i+1));
-    [arr[i],arr[j]]=[arr[j],arr[i]];
-  }
+  for(let i=arr.length-1;i>0;i--){ const j = Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]]; }
   return arr;
 }
 
 function renderQuiz(){
-  const q = state.quiz;
-  const cur = q.questions[q.index];
+  const q = state.quiz; const cur = q.questions[q.index];
   app.innerHTML = `
     ${headerHTML()}
     <div class="quiz-box">
@@ -785,10 +744,10 @@ function renderQuiz(){
       </div>
     </div>
   `;
+  bindTabs();
   app.querySelectorAll('.quiz-opt').forEach(btn=>{
     btn.onclick = ()=>{
-      if(q.answered) return;
-      q.answered = true;
+      if(q.answered) return; q.answered = true;
       const chosen = cur.options[+btn.dataset.opt];
       const isCorrect = chosen === cur.correct;
       if(isCorrect) q.score++;
@@ -799,11 +758,8 @@ function renderQuiz(){
       });
       speak(cur.correct);
       setTimeout(()=>{
-        if(q.index < q.questions.length-1){
-          q.index++; q.answered=false; renderQuiz();
-        } else {
-          state.view='quiz-result'; render();
-        }
+        if(q.index < q.questions.length-1){ q.index++; q.answered=false; renderQuiz(); }
+        else { state.view='quiz-result'; render(); }
       }, 950);
     };
   });
@@ -823,8 +779,122 @@ async function renderQuizResult(){
       <button class="ghost-btn" id="toCategory">voltar ao capítulo</button>
     </div>
   `;
+  bindTabs();
   document.getElementById('again').onclick = ()=> startQuiz(q.cat);
   document.getElementById('toCategory').onclick = ()=>{ state.view='category'; render(); };
+}
+
+/* ============== ESCRITA ============== */
+function renderBlocks(blocks){
+  return blocks.map(b=>{
+    if(b.type==='p') return `<p class="gp">${b.text}</p>`;
+    if(b.type==='h') return `<div class="gh">${b.text}</div>`;
+    if(b.type==='list') return `<ul class="glist">${b.items.map(i=>`<li>${i}</li>`).join('')}</ul>`;
+    if(b.type==='table'){
+      return `<table class="gtable"><thead><tr>${b.headers.map(h=>`<th>${h}</th>`).join('')}</tr></thead>
+      <tbody>${b.rows.map(r=>`<tr>${r.map((c,i)=>`<td${i===0?' class="pl-cell"':''}>${c}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
+    }
+    if(b.type==='example'){
+      return `<div class="example-row">
+        <div class="ex-text"><div class="ex-pl">${b.pl}</div><div class="ex-phon">${b.phon}</div><div class="ex-pt">${b.pt}</div></div>
+        <button class="play-btn mini" data-say="${b.pl.replace(/"/g,'&quot;')}" title="Ouvir">🔊</button>
+      </div>`;
+    }
+    return '';
+  }).join('');
+}
+function bindBlockAudio(container){
+  container.querySelectorAll('[data-say]').forEach(btn=>{
+    btn.onclick = ()=> speak(btn.dataset.say, btn);
+  });
+}
+
+function renderEscrita(){
+  app.innerHTML = `
+    ${headerHTML()}
+    <p class="lead">O sistema de escrita do polonês parece intimidador à primeira vista, mas segue regras muito consistentes — bem mais regulares que as do português.</p>
+
+    <div class="content-section">
+      <h2>Como ler o alfabeto</h2>
+      <div class="section-intro">32 letras: as mesmas do nosso alfabeto, menos Q, V e X, mais nove letras com sinais diacríticos.</div>
+      ${renderBlocks(ESCRITA_INTRO)}
+      <table class="gtable">
+        <thead><tr><th>Letra</th><th>Como soa</th><th>Exemplo</th><th>Significado</th></tr></thead>
+        <tbody>
+          ${ALPHABET.map(a=>`<tr>
+            <td class="pl-cell">${a[0]}</td><td>${a[1]}</td>
+            <td>${a[2]} <button class="play-btn mini" data-say="${a[2]}" title="Ouvir" style="margin-left:6px;">🔊</button></td>
+            <td>${a[3]}</td>
+          </tr>`).join('')}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="content-section">
+      <h2>Dígrafos: duas letras, um som só</h2>
+      <div class="section-intro">Combinações que aparecem o tempo todo — vale decorar cada uma delas.</div>
+      <table class="gtable">
+        <thead><tr><th>Dígrafo</th><th>Como soa</th><th>Exemplo</th><th>Significado</th></tr></thead>
+        <tbody>
+          ${DIGRAPHS.map(a=>`<tr>
+            <td class="pl-cell">${a[0]}</td><td>${a[1]}</td>
+            <td>${a[2]} <button class="play-btn mini" data-say="${a[2]}" title="Ouvir" style="margin-left:6px;">🔊</button></td>
+            <td>${a[3]}</td>
+          </tr>`).join('')}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="content-section">
+      <h2>Consoantes suaves: duas grafias, um som</h2>
+      ${renderBlocks(ESCRITA_PALATAL)}
+    </div>
+
+    <div class="content-section">
+      <h2>Acento tônico</h2>
+      ${renderBlocks(ESCRITA_STRESS)}
+    </div>
+
+    <footer class="note">Toque nos ícones de áudio para ouvir a pronúncia com a voz polonesa do seu navegador, quando disponível.</footer>
+  `;
+  bindTabs();
+  bindBlockAudio(app);
+}
+
+/* ============== GRAMÁTICA ============== */
+function renderGrammarGrid(){
+  const lessons = GRAMMAR.map(l=>`
+    <button class="chapter" data-lesson="${l.id}">
+      <div class="num">Lição ${l.num}</div>
+      <div class="title">${l.title}</div>
+      <div class="desc">${l.desc}</div>
+    </button>
+  `).join('');
+  app.innerHTML = `
+    ${headerHTML()}
+    <p class="lead">Uma introdução direta à gramática polonesa, pensada para quem parte do português — com o que muda, o que se parece, e o que é totalmente novo.</p>
+    <div class="lesson-grid">${lessons}</div>
+    <footer class="note">A gramática polonesa tem um elemento sem equivalente em português — os 7 casos gramaticais. Não é preciso dominar tudo de uma vez: comece pelas primeiras lições e volte às demais aos poucos.</footer>
+  `;
+  bindTabs();
+  app.querySelectorAll('.chapter').forEach(btn=>{
+    btn.onclick = ()=>{ state.gramLesson = btn.dataset.lesson; render(); };
+  });
+}
+
+function currentLesson(){ return GRAMMAR.find(l=>l.id===state.gramLesson); }
+
+function renderGrammarLesson(){
+  const l = currentLesson();
+  app.innerHTML = `
+    ${headerHTML()}
+    <button class="backbtn" id="back">← todas as lições</button>
+    <div class="cat-header"><div class="title">${l.num} · ${l.title}</div></div>
+    <div class="content-section">${renderBlocks(l.blocks)}</div>
+  `;
+  bindTabs();
+  document.getElementById('back').onclick = ()=>{ state.gramLesson=null; render(); };
+  bindBlockAudio(app);
 }
 
 /* ============== INIT ============== */
@@ -832,6 +902,15 @@ async function renderQuizResult(){
   await loadMastery();
   render();
 })();
+
+/* ============== PWA: registro do service worker ============== */
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').catch(() => {
+      // Falha silenciosa: o app continua funcionando normalmente sem o cache offline.
+    });
+  });
+}
 </script>
 </body>
 </html>

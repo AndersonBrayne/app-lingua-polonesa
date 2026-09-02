@@ -16,6 +16,15 @@ Inspirado na abordagem prática de sites como o [Loecsen](https://www.loecsen.co
 
 O progresso de estudo fica salvo no navegador do próprio usuário (via `localStorage`), sem necessidade de conta ou backend.
 
+## PWA — instalável e funciona offline
+
+O app é um **Progressive Web App**: tem manifest (`manifest.json`), ícones e service worker (`sw.js`), então pode ser "instalado" na tela inicial do celular ou computador e continua funcionando mesmo sem internet depois da primeira visita.
+
+- No Chrome/Edge (desktop ou Android): ícone de instalação na barra de endereço, ou menu → "Instalar app"
+- No Safari (iOS): botão de compartilhar → "Adicionar à Tela de Início"
+
+> O PWA só funciona de verdade quando servido via HTTPS (GitHub Pages já serve assim) — abrir o `index.html` direto do disco não ativa o service worker.
+
 ## Como usar
 
 É um único arquivo HTML autocontido — sem build, sem dependências além de uma fonte do Google Fonts. Basta abrir `index.html` em qualquer navegador moderno.
