@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Polski dla Ciebie — Polonês para você</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #12203E;
+    --bg-2: #0D1830;
+    --surface: #1B2C50;
+    --surface-2: #223460;
+    --gold: #D6A429;
+    --gold-dim: #9c7c2f;
+    --crimson: #C1392B;
+    --text: #F2ECDA;
+    --text-muted: #93A4C4;
+    --line: #33456E;
+    --good: #6FA97A;
+    --bad: #C1544A;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background: var(--bg);
+    background-image:
+      radial-gradient(ellipse at top left, rgba(214,164,41,0.08), transparent 45%),
+      radial-gradient(ellipse at bottom right, rgba(193,57,43,0.07), transparent 50%);
+    color: var(--text);
+    font-family: 'Work Sans', sans-serif;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection{ background: var(--gold); color: var(--bg-2); }
+
+  a, button { font-family: inherit; }
+
+  .wrap{
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 28px 20px 80px;
+  }
+
+  header.top{
+    display:flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 16px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 28px;
+  }
+  .brand{
+    display:flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .brand .mark{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size: 1.9rem;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    line-height:1;
+  }
+  .brand .mark em{
+    font-style: normal;
+    color: var(--gold);
+  }
+  .brand .sub{
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+  .progress-pill{
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    text-align:right;
+    line-height:1.5;
+  }
+  .progress-pill b{ color: var(--gold); font-weight:600; }
+
+  /* HOME GRID */
+  .lead{
+    font-family:'Fraunces', serif;
+    font-size: clamp(1.5rem, 4vw, 2.1rem);
+    line-height: 1.25;
+    max-width: 620px;
+    margin: 0 0 30px;
+    font-weight: 500;
+  }
+
+  .chapters{
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 2px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  .chapter{
+    background: var(--surface);
+    padding: 20px 18px;
+    cursor:pointer;
+    display:flex;
+    flex-direction:column;
+    gap: 10px;
+    text-align:left;
+    border:none;
+    color: inherit;
+    position:relative;
+    transition: background .15s ease;
+  }
+  .chapter:hover{ background: var(--surface-2); }
+  .chapter:focus-visible{ outline: 2px solid var(--gold); outline-offset: -2px; }
+  .chapter .num{
+    font-family:'Fraunces', serif;
+    font-size: 0.85rem;
+    color: var(--gold-dim);
+    letter-spacing: 0.04em;
+  }
+  .chapter .title{
+    font-family:'Fraunces', serif;
+    font-size: 1.18rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .chapter .meta{
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+    margin-top: 4px;
+  }
+  .bar-track{
+    height: 3px;
+    background: var(--bg-2);
+    width: 100%;
+    margin-top: 2px;
+  }
+  .bar-fill{
+    height: 100%;
+    background: var(--gold);
+  }
+
+  /* CATEGORY VIEW */
+  .backbtn{
+    background:none;
+    border:none;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    cursor:pointer;
+    padding: 0 0 18px;
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+  .backbtn:hover{ color: var(--gold); }
+
+  .cat-header{
+    display:flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 22px;
+  }
+  .cat-header .title{
+    font-family:'Fraunces', serif;
+    font-size: 1.8rem;
+    font-weight:600;
+  }
+  .mode-toggle{
+    display:flex;
+    gap: 2px;
+    border: 1px solid var(--line);
+  }
+  .mode-toggle button{
+    background: var(--surface);
+    color: var(--text-muted);
+    border: none;
+    padding: 8px 14px;
+    font-size: 0.82rem;
+    cursor: pointer;
+  }
+  .mode-toggle button.active{
+    background: var(--gold);
+    color: var(--bg-2);
+    font-weight: 600;
+  }
+
+  /* LIST MODE */
+  .phrase-row{
+    display:grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 14px;
+    align-items:center;
+    padding: 16px 4px;
+    border-bottom: 1px solid var(--line);
+  }
+  .phrase-row .pt{
+    font-size: 0.95rem;
+    color: var(--text-muted);
+  }
+  .phrase-row .pl-block .pl{
+    font-family:'Fraunces', serif;
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .phrase-row .pl-block .phon{
+    font-size: 0.78rem;
+    color: var(--gold-dim);
+    font-style: italic;
+    margin-top: 2px;
+  }
+  .play-btn{
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--gold);
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+    font-size: 1rem;
+  }
+  .play-btn:hover{ border-color: var(--gold); background: rgba(214,164,41,0.08); }
+  .play-btn.playing{ background: var(--gold); color: var(--bg-2); }
+
+  @media (max-width: 560px){
+    .phrase-row{ grid-template-columns: 1fr auto; }
+    .phrase-row .pt{ grid-column: 1 / -1; order: 2; }
+    .phrase-row .pl-block{ order:1; }
+    .phrase-row .play-btn{ order:1; }
+  }
+
+  /* FLASHCARD MODE */
+  .flash-wrap{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap: 22px;
+    padding: 20px 0 10px;
+  }
+  .flash-progress{
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+  .flashcard{
+    width: 100%;
+    max-width: 440px;
+    min-height: 220px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap: 14px;
+    padding: 30px 24px;
+    text-align:center;
+    cursor:pointer;
+    position:relative;
+  }
+  .flashcard .side-label{
+    position:absolute;
+    top:14px; left:16px;
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+  }
+  .flashcard .main{
+    font-family:'Fraunces', serif;
+    font-size: 1.7rem;
+    font-weight: 600;
+  }
+  .flashcard .phon{
+    color: var(--gold);
+    font-style: italic;
+    font-size: 0.95rem;
+  }
+  .flashcard .hint{
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    margin-top: 6px;
+  }
+  .flash-controls{
+    display:flex;
+    gap: 10px;
+  }
+  .flash-controls button{
+    padding: 10px 20px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    color: var(--text);
+    cursor:pointer;
+    font-size: 0.85rem;
+  }
+  .flash-controls .know{ border-color: var(--good); color: var(--good); }
+  .flash-controls .know:hover{ background: rgba(111,169,122,0.12); }
+  .flash-controls .dontknow{ border-color: var(--bad); color: var(--bad); }
+  .flash-controls .dontknow:hover{ background: rgba(193,84,74,0.12); }
+  .flash-controls .say{ border-color: var(--gold); color: var(--gold); }
+
+  /* QUIZ */
+  .quiz-box{
+    background: var(--surface);
+    border: 1px solid var(--line);
+    padding: 28px 24px;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+  .quiz-progress{
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+  }
+  .quiz-question{
+    font-family:'Fraunces', serif;
+    font-size: 1.4rem;
+    margin-bottom: 22px;
+  }
+  .quiz-question small{
+    display:block;
+    color: var(--text-muted);
+    font-family:'Work Sans', sans-serif;
+    font-size: 0.75rem;
+    margin-bottom: 6px;
+  }
+  .quiz-opts{
+    display:flex;
+    flex-direction:column;
+    gap: 8px;
+  }
+  .quiz-opt{
+    text-align:left;
+    padding: 13px 16px;
+    border: 1px solid var(--line);
+    background: var(--bg-2);
+    color: var(--text);
+    cursor:pointer;
+    font-size: 0.95rem;
+    font-family:'Fraunces', serif;
+  }
+  .quiz-opt:hover{ border-color: var(--gold); }
+  .quiz-opt.correct{ border-color: var(--good); background: rgba(111,169,122,0.14); }
+  .quiz-opt.wrong{ border-color: var(--bad); background: rgba(193,84,74,0.14); }
+  .quiz-opt[disabled]{ cursor:default; }
+
+  .quiz-result{
+    text-align:center;
+    padding: 30px 10px;
+  }
+  .quiz-result .score{
+    font-family:'Fraunces', serif;
+    font-size: 2.4rem;
+    color: var(--gold);
+  }
+  .quiz-result .best{
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin-top: 4px;
+  }
+  .primary-btn{
+    margin-top: 20px;
+    background: var(--crimson);
+    color: #F8ECE9;
+    border:none;
+    padding: 12px 22px;
+    cursor:pointer;
+    font-size: 0.88rem;
+    font-weight: 600;
+  }
+  .primary-btn:hover{ background: #a92f22; }
+  .ghost-btn{
+    margin-top: 10px;
+    background: none;
+    border:none;
+    color: var(--text-muted);
+    cursor:pointer;
+    font-size: 0.82rem;
+    text-decoration: underline;
+  }
+
+  .quiz-launch{
+    text-align:center;
+    padding: 10px 0 6px;
+  }
+  .quiz-launch p{ color: var(--text-muted); max-width: 420px; margin: 8px auto 20px; font-size: 0.9rem;}
+
+  footer.note{
+    margin-top: 50px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+    font-size: 0.76rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+</style>
+</head>
+<body>
+  <div class="wrap" id="app"></div>
+
+<script>
+/* ================= DATA ================= */
+const CATEGORIES = [
+  { id:'essenciais', num:'01', title:'Frases essenciais', phrases:[
+    ['Olá','Cześć','tchéch'],
+    ['Bom dia','Dzień dobry','djien dóbri'],
+    ['Boa noite','Dobranoc','dobránots'],
+    ['Como você está?','Jak się masz?','iák śhe mash'],
+    ['Bem, obrigado(a)','Dobrze, dziękuję','dóbje djenkúie'],
+    ['Por favor','Proszę','próshe'],
+    ['Obrigado(a)','Dziękuję','djenkúie'],
+    ['De nada','Proszę bardzo','próshe bárdzo'],
+    ['Sim','Tak','tak'],
+    ['Não','Nie','nié'],
+    ['Desculpe','Przepraszam','pshepráscham'],
+    ['Até logo','Do zobaczenia','do zobatchénia'],
+    ['Adeus','Do widzenia','do vidzénia'],
+  ]},
+  { id:'aprender', num:'02', title:'Para aprender', phrases:[
+    ['Eu entendo','Rozumiem','rozúmiem'],
+    ['Eu não entendo','Nie rozumiem','nié rozúmiem'],
+    ['Você fala português?','Czy mówisz po portugalsku?','tchi múvish po portugálsku'],
+    ['Eu não falo polonês','Nie mówię po polsku','nié múvie po pólsku'],
+    ['Pode repetir, por favor?','Możesz powtórzyć?','mójesh povtújitch'],
+    ['Fale mais devagar, por favor','Mów wolniej, proszę','muv vólniei próshe'],
+    ['Como se diz isso?','Jak się to mówi?','iák śhe to múvi'],
+    ['O que isso significa?','Co to znaczy?','tso to znátchi'],
+  ]},
+  { id:'numeros', num:'03', title:'Números', phrases:[
+    ['Zero','Zero','zéro'],
+    ['Um','Jeden','iéden'],
+    ['Dois','Dwa','dva'],
+    ['Três','Trzy','tshi'],
+    ['Quatro','Cztery','tchtéri'],
+    ['Cinco','Pięć','pientch'],
+    ['Seis','Sześć','shéshtch'],
+    ['Sete','Siedem','śhédem'],
+    ['Oito','Osiem','óśhem'],
+    ['Nove','Dziewięć','djévientch'],
+    ['Dez','Dziesięć','djéśhentch'],
+  ]},
+  { id:'cores', num:'04', title:'Cores', phrases:[
+    ['Branco','Biały','biáwi'],
+    ['Preto','Czarny','tchárni'],
+    ['Vermelho','Czerwony','tchervóni'],
+    ['Azul','Niebieski','niebiéski'],
+    ['Verde','Zielony','zielóni'],
+    ['Amarelo','Żółty','jówti'],
+    ['Laranja','Pomarańczowy','pomaranchóvi'],
+    ['Rosa','Różowy','rújovi'],
+    ['Roxo','Fioletowy','fioletóvi'],
+    ['Cinza','Szary','shári'],
+  ]},
+  { id:'cidade', num:'05', title:'Na cidade', phrases:[
+    ['Onde fica...?','Gdzie jest...?','gdjié iest'],
+    ['Como chego a...?','Jak dojść do...?','iák doishtch do'],
+    ['Siga em frente','Idź prosto','idj prósto'],
+    ['Vire à esquerda','Skręć w lewo','skrentch v lévo'],
+    ['Vire à direita','Skręć w prawo','skrentch v právo'],
+    ['Isso é longe?','Czy to daleko?','tchi to daléko'],
+    ['Estação de trem','Dworzec kolejowy','dvójets koleióvi'],
+    ['Aeroporto','Lotnisko','lotńísko'],
+  ]},
+  { id:'restaurante', num:'06', title:'Restaurante', phrases:[
+    ['Uma mesa para dois, por favor','Stolik dla dwóch osób, proszę','stólik dla dvuh osúb próshe'],
+    ['O cardápio, por favor','Poproszę menu','popróshe ménu'],
+    ['Eu gostaria de...','Chciałbym / Chciałabym...','ktchiáwbim / ktchiáwabim'],
+    ['A conta, por favor','Poproszę rachunek','popróshe rahúnek'],
+    ['Está delicioso','Jest pyszne','iest píshne'],
+    ['Água','Woda','vóda'],
+    ['Pão','Chleb','hlep'],
+    ['Estou com fome','Jestem głodny / głodna','iéstem gwódni / gwódna'],
+  ]},
+  { id:'compras', num:'07', title:'Compras', phrases:[
+    ['Quanto custa?','Ile to kosztuje?','íle to koshtúie'],
+    ['É muito caro','To jest bardzo drogie','to iest bárdzo drógie'],
+    ['Posso experimentar?','Czy mogę przymierzyć?','tchi móge pshimiéjitch'],
+    ['Vocês aceitam cartão?','Czy przyjmujecie karty?','tchi pshiimuiétche kárti'],
+    ['Só isso, obrigado(a)','To wszystko, dziękuję','to fshístko djenkúie'],
+  ]},
+  { id:'familia', num:'08', title:'Família', phrases:[
+    ['Mãe','Mama','máma'],
+    ['Pai','Tata','táta'],
+    ['Irmão','Brat','brat'],
+    ['Irmã','Siostra','śhóstra'],
+    ['Filho','Syn','sin'],
+    ['Filha','Córka','tsúrka'],
+    ['Marido','Mąż','monsh'],
+    ['Esposa','Żona','jóna'],
+  ]},
+  { id:'sentimentos', num:'09', title:'Sentimentos', phrases:[
+    ['Estou feliz','Jestem szczęśliwy / szczęśliwa','iéstem shtchenśhlívi / shtchenśhlíva'],
+    ['Estou triste','Jestem smutny / smutna','iéstem smútni / smútna'],
+    ['Estou cansado(a)','Jestem zmęczony / zmęczona','iéstem zmenchóni / zmenchóna'],
+    ['Estou com sede','Jestem spragniony / spragniona','iéstem spragnióni / spragnióna'],
+    ['Estou com pressa','Śpieszę się','śhpiéshe śhe'],
+    ['Tudo bem','W porządku','v poshóndku'],
+    ['Estou com medo','Boję się','bóie śhe'],
+  ]},
+  { id:'emergencias', num:'10', title:'Emergências', phrases:[
+    ['Socorro!','Pomocy!','pomótsi'],
+    ['Chame a polícia','Wezwij policję','vézvi política'],
+    ['Preciso de um médico','Potrzebuję lekarza','potshebúie lekája'],
+    ['Onde fica o hospital?','Gdzie jest szpital?','gdjié iest shpitál'],
+    ['Estou perdido(a)','Zgubiłem się / Zgubiłam się','zgubíwem śhe / zgubíwam śhe'],
+    ['Cuidado!','Uwaga!','uvága'],
+  ]},
+  { id:'tempo', num:'11', title:'Tempo e calendário', phrases:[
+    ['Que horas são?','Która jest godzina?','ktúra iest godjína'],
+    ['Hoje','Dzisiaj','djíśhai'],
+    ['Amanhã','Jutro','iútro'],
+    ['Ontem','Wczoraj','ftchórai'],
+    ['Segunda-feira','Poniedziałek','poniedjáwek'],
+    ['Terça-feira','Wtorek','ftórek'],
+    ['Quarta-feira','Środa','śhróda'],
+    ['Quinta-feira','Czwartek','tchfártek'],
+    ['Sexta-feira','Piątek','piontek'],
+    ['Sábado','Sobota','sobóta'],
+    ['Domingo','Niedziela','niedjéla'],
+  ]},
+];
+
+/* ============== STATE ============== */
+let state = { view:'home', catId:null, mode:'list', flashIndex:0, flashFlipped:false,
+              quiz:null, mastery:{} };
+
+/* ============== STORAGE ============== */
+async function loadMastery(){
+  try{
+    const r = await window.storage.get('mastery-data');
+    state.mastery = r ? JSON.parse(r.value) : {};
+  }catch(e){ state.mastery = {}; }
+}
+async function saveMastery(){
+  try{ await window.storage.set('mastery-data', JSON.stringify(state.mastery)); }catch(e){}
+}
+async function loadBest(catId){
+  try{
+    const r = await window.storage.get('quiz-best:'+catId);
+    return r ? JSON.parse(r.value) : null;
+  }catch(e){ return null; }
+}
+async function saveBest(catId, score, total){
+  try{
+    const cur = await loadBest(catId);
+    if(!cur || score > cur.score){
+      await window.storage.set('quiz-best:'+catId, JSON.stringify({score, total}));
+    }
+  }catch(e){}
+}
+
+function phraseKey(catId, idx){ return catId+':'+idx; }
+function catMasteryPct(cat){
+  const total = cat.phrases.length;
+  let known = 0;
+  cat.phrases.forEach((_,i)=>{ if(state.mastery[phraseKey(cat.id,i)]) known++; });
+  return Math.round(100*known/total);
+}
+function overallPct(){
+  let total=0, known=0;
+  CATEGORIES.forEach(c=>{ total+=c.phrases.length; c.phrases.forEach((_,i)=>{ if(state.mastery[phraseKey(c.id,i)]) known++; }); });
+  return total? Math.round(100*known/total) : 0;
+}
+
+/* ============== TTS ============== */
+let polishVoice = null;
+function pickVoice(){
+  const voices = window.speechSynthesis ? window.speechSynthesis.getVoices() : [];
+  polishVoice = voices.find(v=>v.lang && v.lang.toLowerCase().startsWith('pl')) || null;
+}
+if('speechSynthesis' in window){
+  pickVoice();
+  window.speechSynthesis.onvoiceschanged = pickVoice;
+}
+function speak(text, btn){
+  if(!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'pl-PL';
+  if(polishVoice) u.voice = polishVoice;
+  u.rate = 0.88;
+  if(btn){
+    btn.classList.add('playing');
+    u.onend = ()=> btn.classList.remove('playing');
+    u.onerror = ()=> btn.classList.remove('playing');
+  }
+  window.speechSynthesis.speak(u);
+}
+
+/* ============== RENDER ============== */
+const app = document.getElementById('app');
+
+function render(){
+  if(state.view==='home') return renderHome();
+  if(state.view==='category') return renderCategory();
+  if(state.view==='quiz-launch') return renderQuizLaunch();
+  if(state.view==='quiz') return renderQuiz();
+  if(state.view==='quiz-result') return renderQuizResult();
+}
+
+function headerHTML(){
+  return `
+  <header class="top">
+    <div class="brand">
+      <div class="mark">Polski dla <em>Ciebie</em></div>
+      <div class="sub">polonês para falantes de português</div>
+    </div>
+    <div class="progress-pill">progresso geral<br><b>${overallPct()}%</b> das frases dominadas</div>
+  </header>`;
+}
+
+function renderHome(){
+  const chapters = CATEGORIES.map(c=>{
+    const pct = catMasteryPct(c);
+    return `
+    <button class="chapter" data-cat="${c.id}">
+      <div class="num">Capítulo ${c.num}</div>
+      <div class="title">${c.title}</div>
+      <div class="meta"><span>${c.phrases.length} frases</span><span>${pct}%</span></div>
+      <div class="bar-track"><div class="bar-fill" style="width:${pct}%"></div></div>
+    </button>`;
+  }).join('');
+
+  app.innerHTML = `
+    ${headerHTML()}
+    <p class="lead">Aprenda as frases mais úteis do polonês, uma conversa de cada vez — ouça a pronúncia, treine com flashcards e teste-se com o quiz.</p>
+    <div class="chapters">${chapters}</div>
+    <footer class="note">A pronúncia escrita é uma aproximação pensada para leitores de português — o botão de áudio usa a voz polonesa do seu navegador, quando disponível. O progresso fica salvo neste dispositivo.</footer>
+  `;
+  app.querySelectorAll('.chapter').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      state.view='category'; state.catId=btn.dataset.cat; state.mode='list';
+      state.flashIndex=0; state.flashFlipped=false;
+      render();
+    });
+  });
+}
+
+function currentCat(){ return CATEGORIES.find(c=>c.id===state.catId); }
+
+function renderCategory(){
+  const cat = currentCat();
+  app.innerHTML = `
+    ${headerHTML()}
+    <button class="backbtn" id="back">← todos os capítulos</button>
+    <div class="cat-header">
+      <div class="title">${cat.num} · ${cat.title}</div>
+      <div class="mode-toggle">
+        <button data-mode="list" class="${state.mode==='list'?'active':''}">Lista</button>
+        <button data-mode="flash" class="${state.mode==='flash'?'active':''}">Flashcards</button>
+      </div>
+    </div>
+    <div id="catbody"></div>
+    <div class="quiz-launch">
+      <p>Pronto para testar o que aprendeu neste capítulo?</p>
+      <button class="primary-btn" id="startquiz">Fazer o quiz de ${cat.title}</button>
+    </div>
+  `;
+  document.getElementById('back').onclick = ()=>{ state.view='home'; render(); };
+  document.getElementById('startquiz').onclick = ()=>{ state.view='quiz-launch'; render(); };
+  app.querySelectorAll('.mode-toggle button').forEach(b=>{
+    b.onclick = ()=>{ state.mode=b.dataset.mode; state.flashIndex=0; state.flashFlipped=false; render(); };
+  });
+
+  const body = document.getElementById('catbody');
+  if(state.mode==='list') renderList(body, cat);
+  else renderFlash(body, cat);
+}
+
+function renderList(body, cat){
+  body.innerHTML = cat.phrases.map((p,i)=>`
+    <div class="phrase-row">
+      <div class="pt">${p[0]}</div>
+      <div class="pl-block"><div class="pl">${p[1]}</div><div class="phon">${p[2]}</div></div>
+      <button class="play-btn" data-idx="${i}" title="Ouvir pronúncia">🔊</button>
+    </div>
+  `).join('');
+  body.querySelectorAll('.play-btn').forEach(btn=>{
+    btn.onclick = ()=> speak(cat.phrases[+btn.dataset.idx][1], btn);
+  });
+}
+
+function renderFlash(body, cat){
+  const i = state.flashIndex;
+  const p = cat.phrases[i];
+  const flipped = state.flashFlipped;
+  body.innerHTML = `
+    <div class="flash-wrap">
+      <div class="flash-progress">Cartão ${i+1} de ${cat.phrases.length}</div>
+      <div class="flashcard" id="fc">
+        <div class="side-label">${flipped ? 'POLONÊS' : 'PORTUGUÊS'}</div>
+        <div class="main">${flipped ? p[1] : p[0]}</div>
+        ${flipped ? `<div class="phon">${p[2]}</div>` : ''}
+        <div class="hint">${flipped ? 'toque para voltar' : 'toque para revelar em polonês'}</div>
+      </div>
+      <div class="flash-controls">
+        <button class="say">🔊 ouvir</button>
+        <button class="dontknow">não sabia</button>
+        <button class="know">eu sabia</button>
+      </div>
+    </div>
+  `;
+  document.getElementById('fc').onclick = ()=>{ state.flashFlipped = !state.flashFlipped; renderFlash(body, cat); };
+  body.querySelector('.say').onclick = (e)=>{ e.stopPropagation(); speak(p[1]); };
+  body.querySelector('.know').onclick = (e)=>{ e.stopPropagation(); markFlash(cat,i,true); };
+  body.querySelector('.dontknow').onclick = (e)=>{ e.stopPropagation(); markFlash(cat,i,false); };
+}
+
+function markFlash(cat, i, known){
+  state.mastery[phraseKey(cat.id,i)] = known;
+  saveMastery();
+  if(i < cat.phrases.length-1){
+    state.flashIndex = i+1;
+  } else {
+    state.flashIndex = 0;
+  }
+  state.flashFlipped = false;
+  const body = document.getElementById('catbody');
+  renderFlash(body, cat);
+  // refresh header progress subtly
+  const pill = document.querySelector('.progress-pill b');
+  if(pill) pill.textContent = overallPct()+'%';
+}
+
+/* -------- QUIZ -------- */
+function renderQuizLaunch(){
+  const cat = currentCat();
+  app.innerHTML = `
+    ${headerHTML()}
+    <button class="backbtn" id="back">← ${cat.title}</button>
+    <div class="quiz-box" style="text-align:center;">
+      <div class="title" style="font-family:'Fraunces',serif;font-size:1.4rem;margin-bottom:10px;">Quiz — ${cat.title}</div>
+      <p style="color:var(--text-muted);font-size:0.9rem;">${Math.min(cat.phrases.length,8)} perguntas de português → polonês, com múltipla escolha.</p>
+      <button class="primary-btn" id="go">Começar</button>
+    </div>
+  `;
+  document.getElementById('back').onclick = ()=>{ state.view='category'; render(); };
+  document.getElementById('go').onclick = ()=> startQuiz(cat);
+}
+
+function startQuiz(cat){
+  const n = Math.min(cat.phrases.length, 8);
+  const idxs = [...cat.phrases.keys()];
+  shuffle(idxs);
+  const chosen = idxs.slice(0,n);
+  const questions = chosen.map(qi=>{
+    const correct = cat.phrases[qi];
+    let distractors = cat.phrases.filter((_,i)=>i!==qi).map(p=>p[1]);
+    shuffle(distractors);
+    distractors = distractors.slice(0,3);
+    const options = shuffle([correct[1], ...distractors]);
+    return { pt: correct[0], correct: correct[1], options, phon: correct[2] };
+  });
+  state.quiz = { cat, questions, index:0, score:0, answered:false };
+  state.view='quiz';
+  render();
+}
+
+function shuffle(arr){
+  for(let i=arr.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [arr[i],arr[j]]=[arr[j],arr[i]];
+  }
+  return arr;
+}
+
+function renderQuiz(){
+  const q = state.quiz;
+  const cur = q.questions[q.index];
+  app.innerHTML = `
+    ${headerHTML()}
+    <div class="quiz-box">
+      <div class="quiz-progress">Pergunta ${q.index+1} de ${q.questions.length} · acertos: ${q.score}</div>
+      <div class="quiz-question"><small>Como se diz em polonês?</small>${cur.pt}</div>
+      <div class="quiz-opts" id="opts">
+        ${cur.options.map((o,i)=>`<button class="quiz-opt" data-opt="${i}">${o}</button>`).join('')}
+      </div>
+    </div>
+  `;
+  app.querySelectorAll('.quiz-opt').forEach(btn=>{
+    btn.onclick = ()=>{
+      if(q.answered) return;
+      q.answered = true;
+      const chosen = cur.options[+btn.dataset.opt];
+      const isCorrect = chosen === cur.correct;
+      if(isCorrect) q.score++;
+      app.querySelectorAll('.quiz-opt').forEach(b=>{
+        b.disabled = true;
+        if(b.textContent === cur.correct) b.classList.add('correct');
+        else if(b===btn) b.classList.add('wrong');
+      });
+      speak(cur.correct);
+      setTimeout(()=>{
+        if(q.index < q.questions.length-1){
+          q.index++; q.answered=false; renderQuiz();
+        } else {
+          state.view='quiz-result'; render();
+        }
+      }, 950);
+    };
+  });
+}
+
+async function renderQuizResult(){
+  const q = state.quiz;
+  await saveBest(q.cat.id, q.score, q.questions.length);
+  const best = await loadBest(q.cat.id);
+  app.innerHTML = `
+    ${headerHTML()}
+    <div class="quiz-box quiz-result">
+      <div style="font-size:0.85rem;color:var(--text-muted);">Quiz — ${q.cat.title}</div>
+      <div class="score">${q.score} / ${q.questions.length}</div>
+      <div class="best">${best ? 'melhor resultado: '+best.score+' / '+best.total : ''}</div>
+      <button class="primary-btn" id="again">Tentar de novo</button><br>
+      <button class="ghost-btn" id="toCategory">voltar ao capítulo</button>
+    </div>
+  `;
+  document.getElementById('again').onclick = ()=> startQuiz(q.cat);
+  document.getElementById('toCategory').onclick = ()=>{ state.view='category'; render(); };
+}
+
+/* ============== INIT ============== */
+(async function init(){
+  await loadMastery();
+  render();
+})();
+</script>
+</body>
+</html>
